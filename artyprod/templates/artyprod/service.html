@@ -1,0 +1,47 @@
+{% extends 'artyprod/base.html' %}
+
+{% block content %}
+<style>
+  form {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  input[type="text"],
+  textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+  }
+  label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  button[type="submit"] {
+    padding: 0.5rem 1rem;
+  }
+  .btn-secondary {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+  }
+  h1 {
+    text-align: center;
+    text-decoration: underline;
+  }
+</style>
+
+  <div class="container mt-5">
+    <h1>Ajouter un service</h1>
+    <form method="POST" action="{% url 'service' %}">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="d-flex justify-content-end mt-3">
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+        <a href="{% url 'home' %}" class="btn btn-secondary ms-2">Retour à l'accueil</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}

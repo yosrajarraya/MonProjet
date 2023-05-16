@@ -1,0 +1,48 @@
+{% extends 'artyprod/base.html' %}
+
+{% block content %}
+<style>
+  .delete-team {
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .delete-team h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  .delete-team p {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+
+  .delete-team form {
+    margin-top: 20px;
+  }
+
+  .delete-team form button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+</style>
+
+<div class="delete-team"style ="margin-top:7%">
+  <h2>Supprimer l'équipe {{ team.name }}</h2>
+  <p>Êtes-vous sûr de vouloir supprimer cette équipe ?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Oui, supprimer</button>
+  </form>
+</div>
+{% endblock %}

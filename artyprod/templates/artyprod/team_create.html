@@ -1,0 +1,105 @@
+{% extends 'artyprod/base.html' %}
+
+{% block content %}
+<style>
+  /* Ajoutez votre CSS personnalisé ici */
+  .form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .form-group input[type="text"],
+  .form-group textarea,
+  .form-group select,
+  .form-group .member-checkbox {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .form-group .member-checkbox {
+    display: inline-block;
+    margin-right: 5px;
+    vertical-align: middle;
+  }
+
+  .form-group button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+</style>
+
+<h2 style="margin-top: 7%;text-decoration:underline;color: #007bff; font-size: 24px; font-weight: bold;text-align:center;margin-bottom:2%">Créer une nouvelle équipe</h2>
+  <div class="form-container">
+  <form enctype='multipart/form-data' method='POST' class="post-form">
+      {% csrf_token %}
+      {{ form.name.errors }}
+      <div class="form-group">
+        <label for="{{ form.name.id_for_label }}">Nom :</label>
+        {{ form.name }}
+      </div>
+      {{ form.description.errors }}
+      <div class="form-group">
+        <label for="{{ form.description.id_for_label }}">Description :</label>
+        {{ form.description }}
+      </div>
+      {{ form.creation_date.errors }}
+      <div class="form-group">
+        <label for="{{ form.creation_date.id_for_label }}">Date de création :</label>
+        {{ form.creation_date }}
+      </div>
+      {{ form.members.errors }}
+      <div class="form-group">
+        <label for="{{ form.members.id_for_label }}">Membres :</label>
+       
+        <select name="{{ form.members.html_name }}" multiple class="form-control" id="members-select">
+          {% for member in form.members.field.queryset %}
+          <option value="{{ member.pk }}" {% if member.pk in form.members.value %}selected{% endif %}>
+            {{ member }}
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+      
+      
+      {{ form.projects.errors }}
+      <div class="form-group">
+        <label for="{{ form.projects.id_for_label }}">Projets :</label>
+        {{ form.projects }}
+      </div>
+      <button type="submit" class="btn btn-primary">Créer</button>
+    </form>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var selectAllCheckbox = document.getElementById('select-all-members');
+      var memberCheckboxes = document.querySelectorAll('#members-select option input[type="checkbox"]');
+
+      selectAllCheckbox.addEventListener('change', function() {
+        for (var i = 0; i <
+memberCheckboxes.length; i++) {
+memberCheckboxes[i].checked = selectAllCheckbox.checked;
+}
+});
+});
+</script>
+{% endblock %}    

@@ -1,0 +1,79 @@
+{% extends 'artyprod/base.html' %}
+
+{% block content %}
+  <style>
+    .team-list {
+      width: 80%;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .team-item {
+      margin-bottom: 20px;
+      padding: 10px;
+      background-color: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 5px;
+    }
+
+    .team-name {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .team-description {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .team-link {
+      color: blue;
+      text-decoration: underline;
+    }
+
+    .team-actions {
+      margin-top: 10px;
+    }
+
+    .team-actions a {
+      margin-right: 10px;
+      color: #333;
+      text-decoration: none;
+    }
+
+    .team-actions a:hover {
+      color: blue;
+    }
+
+    .no-teams {
+      font-size: 16px;
+      color: #999;
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+
+  <div class="team-list"style =" margin-top:10%;">
+    <h1>Liste des équipes</h1>
+    {% if teams %}
+      {% for team in teams %}
+        <div class="team-item">
+          <h2 class="team-name">{{ team.name }}</h2>
+          <p class="team-description">{{ team.description }}</p>
+          <a class="team-link" href="{% url 'team_detail' team_id=team.id %}">Voir les détails</a>
+          <div class="team-actions">
+            <a href="{% url 'team_update' team.id %}">Modifier</a>
+            <a href="{% url 'team_delete' team.id %}">Supprimer</a>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p class="no-teams">Aucune équipe n'a été trouvée.</p>
+    {% endif %}
+  </div>
+{% endblock %}

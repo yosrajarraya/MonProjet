@@ -1,0 +1,275 @@
+{% extends 'artyprod/base.html' %}
+
+{% block content %}
+
+ 
+    <head>
+        <style>
+
+
+
+
+
+
+
+
+            
+          /* Styles pour la page d'accueil */
+          body {
+            background-color: #f5f5f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 16px;
+            color: #333;
+          }
+    
+          h1, h2, h3, h4, h5, h6 {
+            font-weight: bold;
+          }
+    
+          /* Styles pour les titres */
+          h1 {
+            font-size: 36px;
+            color: #AE445A;
+            margin: 50px 0;
+            text-align: center;
+          }
+    
+          h2 {
+            font-size: 30px;
+            color: #333;
+            margin-bottom: 30px;
+          }
+    
+          h3 {
+            font-size: 28px;
+            color: #ff3366;
+            margin-bottom: 20px;
+          }
+    
+          /* Styles pour les cartes */
+          .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            background-color: #fff;
+            overflow: hidden;
+            transition: all 0.3s ease-in-out;
+          }
+    
+          .card:hover {
+            transform: scale(1.03);
+          }
+    
+          .card-img-top {
+            border-radius: 10px 10px 0 0;
+            height: 250px;
+            object-fit: cover;
+            width: 100%;
+          }
+    
+          .card-body {
+            padding: 20px;
+          }
+    
+          .card-title {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+          }
+    
+          .card-text {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 10px;
+          }
+    
+          /* Styles pour les boutons */
+          .btn {
+            background-color: #179BFF;
+            border: none;
+            border-radius: 30px;
+            color: #fff;
+            font-size: 18px;
+            padding: 12px 24px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            transition: all 0.3s ease-in-out;
+          }
+    
+          .btn:hover {
+            background-color: #e6005c;
+            transform: scale(1.1);
+          }
+    
+          /* Styles pour les couleurs */
+          .bg-primary {
+            background-color: #ff3366;
+            color: #fff;
+          }
+    
+          .text-primary {
+            color: #ff3366;
+          }
+    
+          .bg-secondary {
+            background-color: #333;
+            color: #fff;
+          }
+    
+          .text-secondary {
+            color: #333;
+          }
+    
+          .mt-5 {
+            margin-top: 50px;
+          }
+    
+          .mb-4 {
+            margin-bottom: 40px;
+          }
+    
+          .mb-5 {
+            margin-bottom: 50px;
+          }
+    
+          .list-group-item {
+            border: none;
+            font-size: 20px;
+            color: #666;
+            padding: 20px;
+            border-bottom: 1px solid #f5f5f5;
+          }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(document).ready(function() {
+      $('a[href^="#"]').click(function() {
+        var target = $(this.hash);
+        if (target.length == 0) target = $('a[name="' + this.hash.substr(1) + '"]');
+        if (target.length == 0) target = $('html');
+        $('html, body').animate({ scrollTop: target.offset().top }, 1000);
+        return false;
+      });
+    });
+	</script>
+  </head>
+
+
+
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class=" mt-5 mb-4">Bienvenue sur le site de ArtyProd !</h1>
+    </div>
+  </div>
+
+  <div class="row" id="projects">
+    <div class="col-md-12">
+      <h2 class="mb-4">Nos projets les plus récents :</h2>
+    </div>
+  </div>
+  <div class="row">
+    {% for project in recent_projects %}
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title">{{ project.title }}</h3>
+            <p class="card-text">{{ project.desc }}</p>
+            <p class="card-text">Date de début : {{ project.start_date|date:"d/m/Y" }}</p>
+            <p class="card-text">Date de fin : {{ project.end_date|date:"d/m/Y" }}</p>
+            <p class="card-text">Statut : {% if project.is_done %}Terminé{% else %}En cours{% endif %}</p>
+            <h4 class="card-title">Détails :</h4>
+            <ul class="card-text">
+              {% for detail in project.details.all %}
+                <li>{{ detail }}</li>
+              {% empty %}
+                <li>Aucun détail pour ce projet.</li>
+              {% endfor %}
+            </ul>
+            <h4 class="card-title">Services :</h4>
+            <ul class="card-text">
+              {% for service in project.services.all %}
+                <li>{{ service }}</li>
+              {% empty %}
+                <li>Aucun service pour ce projet.</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  
+    
+  </div>
+  
+  <div class="row mt-5" id="services">
+    <div class="col-md-12">
+      <h2 class="mb-4">Nos services :</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <ul class="list-group mb-5">
+        {% for service in services %}
+          <li class="list-group-item">
+            <h5 class="mb-0">{{ service.type }}</h5>
+            <p class="mb-0">{{ service.desc }}</p>
+          </li>
+        {% empty %}
+          <li class="list-group-item">Aucun service n'est disponible pour le moment.</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <div class="row" id="team">
+    <div class="col-md-12">
+      <h2 class="mb-4">Les membres de notre équipe :</h2>
+    </div>
+  </div>
+  <form encrypte method='POST' class="post-form" >
+  <div class="row">
+    {% for person in personnel %}
+      <div class="col-md-4 mb-4">
+        <div class="card" style="max-height: 500px; overflow: auto;">
+            <img class="card-img-top" src="{{ person.photo_file.url }}" alt="{{ person.name }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ person.name }}</h5>
+              <p class="card-text">{{ person.description }}</p>
+              <a href="{{ person.cv_file.url }}" class="btn btn-primary" DOWNLOAD>Voir le CV</a>
+              <a href="{{ person.linkedin }}" class="btn btn-secondary">Linkedin</a>
+            </div>
+          </div>
+      </div>
+    {% endfor %}
+
+  </div>
+</form>
+</div>
+</body>
+{% endblock %}

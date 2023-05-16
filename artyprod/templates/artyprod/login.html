@@ -1,0 +1,62 @@
+{% extends "artyprod/base.html" %}
+
+{% block content %}
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title text-center mb-4">Connexion</h2>
+            <form method="post" class="needs-validation" novalidate>
+              {% csrf_token %}
+              {{ form.as_p }}
+              <button type="submit" class="btn btn-primary btn-block mt-4">Se connecter</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .card {
+      border-radius: 15px;
+      box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-title {
+      font-size: 32px;
+      font-weight: bold;
+      color: #5c5c5c;
+    }
+
+    .form-control {
+      border-radius: 10px;
+      padding: 10px 15px;
+      font-size: 16px;
+      color: #5c5c5c;
+      background-color: #f8f8f8;
+      border: none;
+      box-shadow: none;
+    }
+
+    .form-control:focus {
+      box-shadow: none;
+      border-color: #f8f8f8;
+    }
+
+    .btn-primary {
+      border-radius: 10px;
+      padding: 10px 20px;
+      font-size: 18px;
+      font-weight: bold;
+      background-color: #0080ff;
+      border: none;
+      box-shadow: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #0059b3;
+    }
+  </style>
+{% endblock %}
